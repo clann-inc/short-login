@@ -5,12 +5,12 @@
 
 ## ショートコード一覧
 
-- `[c_login]`: ログインフォームを表示
-- `[c_lost_password login_form_url="/login"]`: パスワードリセットフォームを表示。ログインフォームへの URL を login_form_url に入力してください。
-- `[c_login_redirect url="/mypage"]`: ログインしているユーザー向けのリダイレクト。リダイレクト先 URL を url に入力してください。最初の行に配置してください。※使用するには、ショートコードの実行タイミングを get_header より前に変更する必要があります。
-- `[c_nologin_redirect url="/login"]`: ログインしていないユーザー向けのリダイレクト。リダイレクト先 URL を url に入力してください。最初の行に配置してください。※使用するには、ショートコードの実行タイミングを get_header より前に変更する必要があります。
-- `[c_logout_button label="ログアウト"]`: ログアウトボタンを表示
-- `[c_account]`: アカウント編集フォームを表示（パスワードのみ変更可能）
+- `[sl_login]`: ログインフォームを表示
+- `[sl_lost_password login_form_url="/login"]`: パスワードリセットフォームを表示。ログインフォームへの URL を login_form_url に入力してください。
+- `[sl_login_redirect url="/mypage"]`: ログインしているユーザー向けのリダイレクト。リダイレクト先 URL を url に入力してください。最初の行に配置してください。※使用するには、ショートコードの実行タイミングを get_header より前に変更する必要があります。
+- `[sl_nologin_redirect url="/login"]`: ログインしていないユーザー向けのリダイレクト。リダイレクト先 URL を url に入力してください。最初の行に配置してください。※使用するには、ショートコードの実行タイミングを get_header より前に変更する必要があります。
+- `[sl_logout_button label="ログアウト"]`: ログアウトボタンを表示
+- `[sl_account]`: アカウント編集フォームを表示（パスワードのみ変更可能）
 
 ## 補足
 
@@ -30,4 +30,39 @@ ob_end_clean();
 get_header();
 echo $result;
 get_footer();
+```
+
+## サンプルコード
+
+### ログインページ
+
+```php
+[sl_login_redirect url="/mypage"]
+<h1>ログインフォーム↓</h1>
+[sl_login]
+<p><a href="/lost-password">パスワードを忘れた方</a></p>
+```
+
+### パスワード忘れた方ページ
+
+```php
+[sl_login_redirect url="/mypage"]
+[sl_lost_password login_form_url="/login"]
+<p><a href="/login">ログインフォームへ</a></p>
+```
+
+### マイページ
+
+```php
+[sl_nologin_redirect url="/login"]
+<h1>マイページ</h1>
+<p><a href="/mypage/account">アカウント</a></p>
+[sl_logout_button]
+```
+
+### アカウント編集ページ
+
+```php
+[sl_nologin_redirect url="/login"]
+[sl_account]
 ```
