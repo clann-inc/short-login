@@ -193,7 +193,6 @@ function sl_lost_password_set_form_action()
       $message .= 'あなたのアカウントのパスワードが変更されました。' . "\r\n";
       $message .= "\r\n";
       $message .= 'もしこのメールに心当たりが無い場合は事務局までご連絡をお願いします。' . "\r\n";
-      $message .= '事務局メールアドレス: consortium_tobunken@nich.go.jp' . "\r\n";
       $message .= "\r\n\r\n";
       $message .= $blogname;
 
