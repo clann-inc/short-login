@@ -15,7 +15,7 @@ function sl_lost_password_mail_form()
     <?php endif; ?>
     <p class="sl-field">
       <label class="sl-field-label" for="user_mail">登録済みのメールアドレス</label>
-      <input class="sl-field-input" type="mail" name="mail" id="user_mail" value="<?php echo get_input_post('mail') ?: "" ?>">
+      <input class="sl-field-input" type="mail" name="mail" id="user_mail" value="<?php echo sl_get_input_post('mail') ?: "" ?>">
     </p>
     <p class="sl-action">
       <button class="sl-action-button" type="submit">パスワードリセット用URLを送る</button>
@@ -57,7 +57,7 @@ function sl_lost_password_mail_form_action()
     wp_verify_nonce($_POST['password_nonce'], 'sl_lost_password_mail')
   ) {
     try {
-      $user_data = get_user_by('email', get_input_post('mail'));
+      $user_data = get_user_by('email', sl_get_input_post('mail'));
       if (!$user_data || $user_data->roles[0] !== 'subscriber') {
         throw new Exception('該当するアカウントが見つかりませんでした。');
       }
@@ -67,7 +67,7 @@ function sl_lost_password_mail_form_action()
         'action' => 'rp',
         'key' => get_password_reset_key($user_data),
         'login' => rawurlencode($user_data->user_login)
-      ], get_input_post('reset_url_base'));
+      ], sl_get_input_post('reset_url_base'));
 
       // 送信完了をフロントに通知
       set_query_var('sl_lost_password_message_complete', "mail");
@@ -165,10 +165,10 @@ function sl_lost_password_set_form_action()
     wp_verify_nonce($_POST['password_nonce'], 'sl_lost_password_set')
   ) {
     try {
-      $key = get_input_post('key');
-      $password = get_input_post('password');
-      $password2 = get_input_post('password2');
-      $user = get_user_by('login', get_input_post('login'));
+      $key = sl_get_input_post('key');
+      $password = sl_get_input_post('password');
+      $password2 = sl_get_input_post('password2');
+      $user = get_user_by('login', sl_get_input_post('login'));
       $check = check_password_reset_key($key, $user->user_login);
 
       // エラー処理

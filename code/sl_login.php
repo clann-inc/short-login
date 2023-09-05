@@ -16,7 +16,7 @@ function sl_login_form()
     <?php endif; ?>
     <p class="sl-field">
       <label class="sl-field-label" for="user_login">ユーザー名</label>
-      <input class="sl-field-input" type="text" name="log" id="user_login" autocomplete="username" value="<?php echo get_input_post('log') ?: "" ?>">
+      <input class="sl-field-input" type="text" name="log" id="user_login" autocomplete="username" value="<?php echo sl_get_input_post('log') ?: "" ?>">
     </p>
     <p class="sl-field">
       <label class="sl-field-label" for="user_pass">パスワード</label>
@@ -48,7 +48,7 @@ function sl_login_form_action()
     wp_verify_nonce($_POST['login_nonce'], 'sl_login_form')
   ) {
     try {
-      $user_data = get_user_by('login', get_input_post('log'));
+      $user_data = get_user_by('login', sl_get_input_post('log'));
       if (!$user_data || $user_data->roles[0] !== 'subscriber') {
         throw new Exception('ユーザー名とパスワードの組み合わせが間違っています');
       }

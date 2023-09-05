@@ -59,8 +59,8 @@ function sl_account_action()
     wp_verify_nonce($_POST['edit_nonce'], 'sl_account')
   ) {
     try {
-      $password = get_input_post('password');
-      $password2 = get_input_post('password2');
+      $password = sl_get_input_post('password');
+      $password2 = sl_get_input_post('password2');
       $user = wp_get_current_user();
 
       // エラー処理
